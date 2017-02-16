@@ -10,29 +10,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 /**
  *
- * @author manukey
+ * @author marfu
  */
 @Entity
-public class Notification implements Serializable {
-//variable
+public class CampagneProduit implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String Libelle;
-    private String contenu;
-    
+    private int pointsAchats;
+    private int pointsRecompenses;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    private TypeNotification typeNotification;
+    private Magasin magasin;
     
-
-    //getter setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Produit produit;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Campagne campagne;
 
     public Long getId() {
         return id;
@@ -41,32 +43,49 @@ public class Notification implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getLibelle() {
-        return Libelle;
+
+    public int getPointsAchats() {
+        return pointsAchats;
     }
 
-    public void setLibelle(String Libelle) {
-        this.Libelle = Libelle;
+    public void setPointsAchats(int pointsAchats) {
+        this.pointsAchats = pointsAchats;
     }
 
-    public String getContenu() {
-        return contenu;
+    public int getPointsRecompenses() {
+        return pointsRecompenses;
     }
 
-    public void setContenu(String contenu) {
-        this.contenu = contenu;
+    public void setPointsRecompenses(int pointsRecompenses) {
+        this.pointsRecompenses = pointsRecompenses;
     }
 
-    public TypeNotification getTypeNotification() {
-        return typeNotification;
+    public Magasin getMagasin() {
+        return magasin;
     }
 
-    public void setTypeNotification(TypeNotification typeNotification) {
-        this.typeNotification = typeNotification;
+    public void setMagasin(Magasin magasin) {
+        this.magasin = magasin;
     }
+
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
+
+    public Campagne getCampagne() {
+        return campagne;
+    }
+
+    public void setCampagne(Campagne campagne) {
+        this.campagne = campagne;
+    }
+
     
     
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -77,10 +96,10 @@ public class Notification implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Notification)) {
+        if (!(object instanceof CampagneProduit)) {
             return false;
         }
-        Notification other = (Notification) object;
+        CampagneProduit other = (CampagneProduit) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -89,7 +108,7 @@ public class Notification implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ceenet.fidelisation.model.Notification[ id=" + id + " ]";
+        return "com.ceenet.fidelisation.model.CampagneProduit[ id=" + id + " ]";
     }
     
 }

@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
  *
  * @author manukey
  */
-@Stateless
+//@Stateless
 public class ProduitDaoImpl extends GenericDaoImpl<Produit> implements ProduitDao{
      public ProduitDaoImpl() {
     }

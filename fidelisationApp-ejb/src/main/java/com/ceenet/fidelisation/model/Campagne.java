@@ -11,8 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
-
+import javax.persistence.FetchType;
 /**
  *
  * @author manukey
@@ -22,13 +23,16 @@ public class Campagne implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String codeCampagne;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateDebut;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateFin;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TypeCampagne typeCampagne;
 
     public Long getId() {
         return id;
@@ -60,6 +64,14 @@ public class Campagne implements Serializable {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+
+    public TypeCampagne getTypeCampagne() {
+        return typeCampagne;
+    }
+
+    public void setTypeCampagne(TypeCampagne typeCampagne) {
+        this.typeCampagne = typeCampagne;
     }
 
     @Override

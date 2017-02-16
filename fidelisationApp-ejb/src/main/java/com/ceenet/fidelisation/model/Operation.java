@@ -5,40 +5,39 @@
  */
 package com.ceenet.fidelisation.model;
 
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.Temporal;
+import javax.persistence.FetchType;
 
 /**
  *
- * @author manukey
+ * @author marfu
  */
 @Entity
-public class HistoriqueClient implements Serializable {
+public class Operation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int NbrePoint;
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date dateHistorique;
+    private Date dateOperation;
     
-    @ManyToOne(fetch = FetchType.LAZY,optional=true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TypeOperation typeOperation;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Produit produit;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
     private Client client;
- 
-    
-    
-    
-    
 
     public Long getId() {
         return id;
@@ -48,15 +47,29 @@ public class HistoriqueClient implements Serializable {
         this.id = id;
     }
 
-    public int getNbrePoint() {
-        return NbrePoint;
+    public Date getDateOperation() {
+        return dateOperation;
     }
 
-    public void setNbrePoint(int NbrePoint) {
-        this.NbrePoint = NbrePoint;
+    public void setDateOperation(Date dateOperation) {
+        this.dateOperation = dateOperation;
     }
 
-    
+    public TypeOperation getTypeOperation() {
+        return typeOperation;
+    }
+
+    public void setTypeOperation(TypeOperation typeOperation) {
+        this.typeOperation = typeOperation;
+    }
+
+    public Produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(Produit produit) {
+        this.produit = produit;
+    }
 
     public Client getClient() {
         return client;
@@ -66,15 +79,6 @@ public class HistoriqueClient implements Serializable {
         this.client = client;
     }
 
-    public Date getDateHistorique() {
-        return dateHistorique;
-    }
-
-    public void setDateHistorique(Date dateHistorique) {
-        this.dateHistorique = dateHistorique;
-    }
-
-    
     
     
     @Override
@@ -87,10 +91,10 @@ public class HistoriqueClient implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof HistoriqueClient)) {
+        if (!(object instanceof Operation)) {
             return false;
         }
-        HistoriqueClient other = (HistoriqueClient) object;
+        Operation other = (Operation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -99,7 +103,7 @@ public class HistoriqueClient implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ceenet.fidelisation.model.HistoriqueClient[ id=" + id + " ]";
+        return "com.ceenet.fidelisation.model.Operation[ id=" + id + " ]";
     }
     
 }
