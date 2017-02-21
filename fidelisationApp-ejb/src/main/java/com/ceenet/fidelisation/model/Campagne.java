@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.FetchType;
+
+
 /**
  *
  * @author manukey
@@ -30,6 +32,11 @@ public class Campagne implements Serializable {
     private Date dateDebut;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateFin;
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date dateCreation;
+    
+    private boolean statut;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private TypeCampagne typeCampagne;
@@ -72,6 +79,22 @@ public class Campagne implements Serializable {
 
     public void setTypeCampagne(TypeCampagne typeCampagne) {
         this.typeCampagne = typeCampagne;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public boolean isStatut() {
+        return statut;
+    }
+
+    public void setStatut(boolean statut) {
+        this.statut = statut;
     }
 
     @Override
