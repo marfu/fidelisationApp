@@ -6,38 +6,29 @@
 package com.ceenet.fidelisation.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.FetchType;
 
 /**
  *
  * @author marfu
  */
 @Entity
-public class Operation implements Serializable {
+public class CodeProduits implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date dateOperation;
+    private String code;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    private TypeOperation typeOperation;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,optional=true)
     private Produit produit;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CompteClient compteClient;
 
     public Long getId() {
         return id;
@@ -45,22 +36,6 @@ public class Operation implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Date getDateOperation() {
-        return dateOperation;
-    }
-
-    public void setDateOperation(Date dateOperation) {
-        this.dateOperation = dateOperation;
-    }
-
-    public TypeOperation getTypeOperation() {
-        return typeOperation;
-    }
-
-    public void setTypeOperation(TypeOperation typeOperation) {
-        this.typeOperation = typeOperation;
     }
 
     public Produit getProduit() {
@@ -71,16 +46,14 @@ public class Operation implements Serializable {
         this.produit = produit;
     }
 
-    public CompteClient getCompteClient() {
-        return compteClient;
+    public String getCode() {
+        return code;
     }
 
-    public void setCompteClient(CompteClient compteClient) {
-        this.compteClient = compteClient;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    
-    
     
     @Override
     public int hashCode() {
@@ -92,10 +65,10 @@ public class Operation implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Operation)) {
+        if (!(object instanceof CodeProduits)) {
             return false;
         }
-        Operation other = (Operation) object;
+        CodeProduits other = (CodeProduits) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -104,7 +77,7 @@ public class Operation implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ceenet.fidelisation.model.Operation[ id=" + id + " ]";
+        return "com.ceenet.fidelisation.model.CodeProduits[ id=" + id + " ]";
     }
     
 }
