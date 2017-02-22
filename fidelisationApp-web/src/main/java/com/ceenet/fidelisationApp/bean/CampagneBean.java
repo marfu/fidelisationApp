@@ -5,8 +5,10 @@
  */
 package com.ceenet.fidelisationApp.bean;
 
-
+import com.ceenet.fidelisation.model.Campagne;
+import com.ceenet.fidelisation.service.CampagneService;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,14 +21,80 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author marfu
  */
-
-@Named(value = "communeBean")
+@Named(value = "campagneBean")
 @SessionScoped
 public class CampagneBean implements Serializable {
+
+    @EJB
+    private CampagneService campagneService;
     
-   
+    private Campagne campagne;
+
+    private String libelle;
+    private Date dateDebut;
+    private Date dateFin;
+    private boolean statut;
+    private long typeCampagne;
+        
+    public String creerCampagne() {
+        //  System.out.print("xxxx");
+        
+        campagneService.createCampagne(libelle, dateDebut, dateFin,statut,typeCampagne);
+          
+        return "success";
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public boolean isStatut() {
+        return statut;
+    }
+
+    public void setStatut(boolean statut) {
+        this.statut = statut;
+    }
+
     
     
     
-   
+    public void onRowEdit(RowEditEvent event) {
+       
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+       
+    }
+
+    public long getTypeCampagne() {
+        return typeCampagne;
+    }
+
+    public void setTypeCampagne(long typeCampagne) {
+        this.typeCampagne = typeCampagne;
+    }
+    
+    
+
 }

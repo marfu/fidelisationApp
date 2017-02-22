@@ -18,4 +18,17 @@
 		</renderer>
     </render-kit>
     
+    <navigation-rule>
+        <from-view-id>/campagne.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{campagneBean.createCampagne}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/campagne.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>   
+       
+   
+       
+    </navigation-rule>
+    
 </faces-config>

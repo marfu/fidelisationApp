@@ -5,9 +5,10 @@
  */
 package com.ceenet.fidelisation.service;
 
-
 import com.ceenet.fidelisation.dao.CampagneDao;
+import com.ceenet.fidelisation.dao.TypeCampagneDao;
 import com.ceenet.fidelisation.model.Campagne;
+import com.ceenet.fidelisation.model.TypeCampagne;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -17,29 +18,30 @@ import javax.ejb.Stateless;
  *
  * @author marfu
  */
-
 @Stateless
 public class CampagneService {
-    
     
     @EJB
     private CampagneDao communeDao;
     
-    public Campagne createCampagne( String libelle,Date dateDebut, Date dateFin ,boolean statut) {
-           Campagne t = new Campagne();
-          t.setCodeCampagne(libelle);
-          t.setDateDebut(dateDebut);
-          t.setDateFin(dateFin);
-          t.setDateCreation(dateFin);
-          t.setStatut(statut);
+    @EJB
+    private TypeCampagneDao typeCommuneDao;
+    
+    public Campagne createCampagne(String libelle, Date dateDebut, Date dateFin, boolean statut, Long typeCampagne) {
+        Campagne t = new Campagne();
+        TypeCampagne ty = new TypeCampagne();
+        ty = typeCommuneDao.findById(typeCampagne);
+        t.setCodeCampagne(libelle);
+        t.setDateDebut(dateDebut);
+        t.setDateFin(dateFin);
+        t.setDateCreation(dateFin);
+        t.setStatut(statut);
+        t.setTypeCampagne(ty);
         
-           
-        
-        return t=communeDao.create(t);
+        return t = communeDao.create(t);
     }
     
-    
-    public  List<Campagne> listCampagne(){
-    return communeDao.findAll();
+    public List<Campagne> listCampagne() {
+        return communeDao.findAll();
     }
 }
