@@ -32,5 +32,11 @@ public class MagasinService {
         return MagasinDao.findAll();
     }
     
+    public void deleteMagasin(Long selectMagasin){
+    Magasin m=new Magasin();
+    m=MagasinDao.findById(selectMagasin);
+    MagasinDao.delete(m);
+    
+    }
     
 }

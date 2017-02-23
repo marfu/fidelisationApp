@@ -70,8 +70,8 @@
 
                     </div>
 
-                    <p:dataTable var="listmagasin" value="#{magasinBean.magasin}">
-                        
+                    <p:dataTable var="listmagasin" value="#{magasinBean.magasin}" id="grid">
+
 
                         <p:column headerText="code">
                             <h:outputText value="#{listmagasin.code}" />
@@ -81,7 +81,11 @@
                             <h:outputText value="#{listmagasin.libelle}" />
                         </p:column>
 
-                    
+                        <p:column style="width:32px">
+                            <p:commandButton update=":grid " action="#{magasinBean.deleteMagasin}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-edit" style="color:white" title="View">
+                                <f:setPropertyActionListener value="#{listmagasin.id}"  target="#{magasinBean.selectMagasin}" />
+                            </p:commandButton>
+                        </p:column>
                     </p:dataTable>
                     <p:dialog header="Region " widgetVar="dlg2" modal="true" height="auto" >
 

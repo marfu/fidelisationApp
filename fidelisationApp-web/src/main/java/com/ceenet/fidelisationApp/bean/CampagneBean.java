@@ -28,20 +28,22 @@ public class CampagneBean implements Serializable {
     @EJB
     private CampagneService campagneService;
     
-    private Campagne campagne;
+    private List<Campagne> listCampagne;
 
     private String libelle;
     private Date dateDebut;
     private Date dateFin;
     private boolean statut;
     private long typeCampagne;
-        
-    public String creerCampagne() {
-        //  System.out.print("xxxx");
-        
-        campagneService.createCampagne(libelle, dateDebut, dateFin,statut,typeCampagne);
-          
-        return "success";
+    private long selectCampagne;
+    
+    
+    public long getSelectCampagne() {
+        return selectCampagne;
+    }
+
+    public void setSelectCampagne(long selectCampagne) {
+        this.selectCampagne = selectCampagne;
     }
 
     public String getLibelle() {
@@ -77,6 +79,41 @@ public class CampagneBean implements Serializable {
     }
 
     
+
+    public long getTypeCampagne() {
+        return typeCampagne;
+    }
+
+    public void setTypeCampagne(long typeCampagne) {
+        this.typeCampagne = typeCampagne;
+    }
+
+    public List<Campagne> getListCampagne() {
+        listCampagne=campagneService.listCampagne();
+        return listCampagne;
+    }
+
+    public void setListCampagne(List<Campagne> listCampagne) {
+        this.listCampagne = listCampagne;
+    }
+    
+    
+    
+    
+    public String creerCampagne() {
+        //  System.out.print("xxxx");
+        
+        campagneService.createCampagne(libelle, dateDebut, dateFin,statut,typeCampagne);
+          
+        return "success";
+    }
+    
+    
+     public void deleteCampagne() {
+         
+         
+       
+    }
     
     
     public void onRowEdit(RowEditEvent event) {
@@ -87,14 +124,5 @@ public class CampagneBean implements Serializable {
        
     }
 
-    public long getTypeCampagne() {
-        return typeCampagne;
-    }
-
-    public void setTypeCampagne(long typeCampagne) {
-        this.typeCampagne = typeCampagne;
-    }
-    
-    
 
 }

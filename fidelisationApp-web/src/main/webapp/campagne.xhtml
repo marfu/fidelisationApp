@@ -53,7 +53,7 @@
             <div class="ContainerIndent">
                 <div class="EmptyBox20"></div>
 
-             <f:view>
+                <f:view>
                     <div>
                         <div style="float:left">
                             <h:panelGrid columns="1" cellpadding="5">
@@ -64,24 +64,46 @@
 
                             </h:panelGrid>
                         </div>
-                        
-                    </div>
 
-                 
+                    </div>
+                    <p:dataTable var="item" value="#{campagneBean.listCampagne}" id="grid">
+
+
+                        <p:column headerText="Libellé ">
+                            <h:outputText value="#{item.codeCampagne}" />
+                        </p:column>
+
+                        <p:column headerText="Date creation">
+                            <h:outputText value="#{item.dateCreation}" />
+                        </p:column>
+                        <p:column headerText="Date debut">
+                            <h:outputText value="#{item.dateDebut}" />
+                        </p:column>
+                        <p:column headerText="Date fin">
+                            <h:outputText value="#{item.dateFin}" />
+                        </p:column>
+
+                        <p:column style="width:32px">
+                            <p:commandButton update=":grid " action="#{magasinBean.deleteMagasin}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-edit" style="color:white" title="View">
+                                <f:setPropertyActionListener value="#{listmagasin.id}"  target="#{magasinBean.selectMagasin}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+
                     <p:dialog header="Region " widgetVar="dlg2" modal="true" height="auto" >
 
 
                         <f:view>
-                            <h:form>
+                            <h:form id="form">
 
                                 <p:messages autoUpdate="true"/>
 
                                 <h:panelGrid id="grid" columns="2" cellpadding="5">
 
-                                    
+
                                     <h:outputLabel value="Libellé:" for="nom_region" />
                                     <p:inputText id="nom_region" value="#{campagneBean.libelle}" title="Libellé" required="true" label="Libellé"/>
-                                    
+
                                     <h:outputLabel value="Date debut:" for="date_debut" />
                                     <p:calendar id="date_debut" value="#{campagneBean.dateDebut}" title="Date fin" required="true" label="Date fin"  showOn="button"/>
 
@@ -95,10 +117,10 @@
                                         <f:selectItems value="#{typeCampagneBean.typeCampagne}" var="tag"
                                                        itemLabel="#{tag.libelle}" itemValue="#{tag.id}"/>  
                                     </p:selectOneMenu>
-                                     
+
                                     <h:outputLabel value="Actif:" for="statut" />
                                     <p:selectBooleanCheckbox value="#{campagneBean.statut}" />
-
+                                    
 
                                 </h:panelGrid>
 
@@ -109,14 +131,19 @@
                         </f:view>
 
                     </p:dialog>   
-               </f:view>
+                </f:view>
 
+<f:view>
+                  
 
+                
+                 
+                </f:view>
                 <div class="EmptyBox10"></div>
             </div>
         </div>
 
-       
+
 
     </ui:define>
 

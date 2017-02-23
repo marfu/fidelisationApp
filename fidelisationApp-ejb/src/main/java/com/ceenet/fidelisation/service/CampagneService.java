@@ -31,10 +31,11 @@ public class CampagneService {
         Campagne t = new Campagne();
         TypeCampagne ty = new TypeCampagne();
         ty = typeCampagneDao.findById(typeCampagne);
+        Date created_at = new Date();
         t.setCodeCampagne(libelle);
         t.setDateDebut(dateDebut);
         t.setDateFin(dateFin);
-        t.setDateCreation(dateFin);
+        t.setDateCreation(created_at);
         t.setStatut(statut); 
         t.setTypeCampagne(ty);
         
