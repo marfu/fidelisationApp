@@ -22,26 +22,26 @@ import javax.ejb.Stateless;
 public class CampagneService {
     
     @EJB
-    private CampagneDao communeDao;
+    private CampagneDao campagneDao;
     
     @EJB
-    private TypeCampagneDao typeCommuneDao;
+    private TypeCampagneDao typeCampagneDao;
     
     public Campagne createCampagne(String libelle, Date dateDebut, Date dateFin, boolean statut, Long typeCampagne) {
         Campagne t = new Campagne();
         TypeCampagne ty = new TypeCampagne();
-        ty = typeCommuneDao.findById(typeCampagne);
+        ty = typeCampagneDao.findById(typeCampagne);
         t.setCodeCampagne(libelle);
         t.setDateDebut(dateDebut);
         t.setDateFin(dateFin);
         t.setDateCreation(dateFin);
-        t.setStatut(statut);
+        t.setStatut(statut); 
         t.setTypeCampagne(ty);
         
-        return t = communeDao.create(t);
+        return t = campagneDao.create(t);
     }
     
     public List<Campagne> listCampagne() {
-        return communeDao.findAll();
+        return campagneDao.findAll();
     }
 }
