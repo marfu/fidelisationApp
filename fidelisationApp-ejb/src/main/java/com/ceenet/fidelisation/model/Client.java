@@ -6,10 +6,12 @@
 package com.ceenet.fidelisation.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -26,6 +28,8 @@ public class Client implements Serializable {
     private String nom;
     private String prenom; 
     
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date dateCreation;
     
 
     public Long getId() {
@@ -58,6 +62,14 @@ public class Client implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
     
     

@@ -57,50 +57,45 @@
 
                     <f:view>
                         <div>
-                            <div style="float:right">
+                            <div style="">
                                 <h:panelGrid columns="1" cellpadding="5">
 
 
-                                    <p:commandButton value="Nouveau" type="button" onclick="PF('dlg2').show();"/>
+                                    <p:commandButton value="Creer un compte " type="button" onclick="PF('dlg2').show();"/>
 
 
                                 </h:panelGrid>
                             </div>
 
                         </div>
-                        <p:dataTable var="item" value="#{campagneBean.listCampagne}" id="grid">
+                        <p:dataTable var="item" value="#{compteClientBean.listClientService}" id="grid">
 
 
-                            <p:column headerText="Libellé ">
-                                <h:outputText value="#{item.codeCampagne}" />
+                            <p:column headerText="Code compte client ">
+                                <h:outputText value="#{item.codeCompteClient}" />
                             </p:column>
 
                             <p:column headerText="Date creation">
-                                <h:outputText value="#{item.dateCreation}" />
-                            </p:column>
-                            <p:column headerText="Date debut">
-                                <h:outputText value="#{item.dateDebut}" />
-                            </p:column>
-                            <p:column headerText="Date fin">
-                                <h:outputText value="#{item.dateFin}" />
+                                <h:outputText value="#{item.dateCreationCompte}" />
                             </p:column>
 
                             <p:column headerText="Statut">
-                                
-                                
+
+
                                 <p:inputSwitch value="#{item.statut}" onLabel="Actif" offLabel="Inactif"	>
                                     <p:ajax listener="#{campagneBean.addMessage}" update=":form:msg" />
                                 </p:inputSwitch>
                             </p:column>
 
+
                             <p:column style="width:32px">
                                 <p:commandButton update=":form:grid " action="#{magasinBean.deleteMagasin}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-edit" style="color:white" title="View">
-                                    <f:setPropertyActionListener value="#{listmagasin.id}"  target="#{magasinBean.selectMagasin}" />
+                                    <f:setPropertyActionListener value="#{item.id}"  target="#{magasinBean.selectMagasin}" />
                                 </p:commandButton>
                             </p:column>
                         </p:dataTable>
 
-                        <p:dialog header="Ajouter une campagne " widgetVar="dlg2" modal="true" height="auto" >
+                        <p:dialog header="Créer un compte client " widgetVar="dlg2" modal="true" height="auto" >
 
 
                             <f:view>
@@ -111,30 +106,36 @@
                                     <h:panelGrid id="grid" columns="2" cellpadding="5">
 
 
-                                        <h:outputLabel value="Libellé:" for="nom_region" />
-                                        <p:inputText id="nom_region" value="#{campagneBean.libelle}" title="Libellé" required="true" label="Libellé"/>
+                                        <h:outputLabel value="Code :"  />
+                                        <h:panelGrid columns="2" cellpadding="5">
+                                            <h:form>
+                                                <p:inputText id="passw" value="#{compteClientBean.codeClient}" style="width:270px"  label="Login"/>
+                                                <p:commandButton value="Generer" actionListener="#{compteClientBean.generateCodeClient}" update="passw"/>
+                                            </h:form>
 
-                                        <h:outputLabel value="Date debut:" for="date_debut" />
-                                        <p:calendar id="date_debut" value="#{campagneBean.dateDebut}" title="Date fin" required="true" label="Date fin"  showOn="button"/>
 
-                                        <h:outputLabel value="Date fin:" for="date_fin" />
-                                        <p:calendar id="date_fin" value="#{campagneBean.dateFin}" title="Date fin" required="true" label="Date fin" showOn="button"/>
+                                        </h:panelGrid>
 
-                                        <h:outputLabel value="Type Campagne:" for="type_campagne" />
+                                        <p:column headerText="Statut">
 
-                                        <p:selectOneMenu value="#{campagneBean.typeCampagne}" required="true" label="Lieu de vote">  
-                                            <f:selectItem itemLabel="Selectioner un type" itemValue="" />  
-                                            <f:selectItems value="#{typeCampagneBean.typeCampagne}" var="tag"
-                                                           itemLabel="#{tag.libelle}" itemValue="#{tag.id}"/>  
-                                        </p:selectOneMenu>
 
-                                        <h:outputLabel value="Actif:" for="statut" />
-                                        <p:selectBooleanCheckbox value="#{campagneBean.statut}" />
+                                            <p:inputSwitch value="#{compteClientBean.statut}" onLabel="Actif" offLabel="Inactif"	>
+                                                <p:ajax listener="#{campagneBean.addMessage}" update=":form:msg" />
+                                            </p:inputSwitch>
+                                        </p:column>
 
+                                        <h:outputLabel value="Nom :" for="nom" />
+                                        <p:inputText id="nom" value="#{compteClientBean.nomClient}" title="Nom"  label="Nom"/>
+                                        <h:outputLabel value="Prenom :" for="pre" />
+                                        <p:inputText id="prenom" value="#{compteClientBean.prenomClient}" title="Prenom" label="Prenom"/>
+                                        <h:outputLabel value="Adresse :" for="addr" />
+                                        <p:inputText id="addr" value="#{compteClientBean.addressClient}" title="Adresse" label="Adresse"/>
+                                        <h:outputLabel value="N° Telephone :" for="tel" />
+                                        <p:inputText id="telephone" value="#{compteClientBean.telephoneClient}" title="Téléphone"  label="Téléphone"/>
 
                                     </h:panelGrid>
 
-                                    <p:commandButton value="Valider" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px" action="#{campagneBean.creerCampagne}"/>
+                                    <p:commandButton value="Valider" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px" action="#{compteClientBean.creerCompteClient}"/>
 
                                 </h:form>
 

@@ -7,11 +7,13 @@ package com.ceenet.fidelisation.daoImpl;
 
 import com.ceenet.fidelisation.dao.CompteClientDao;
 import com.ceenet.fidelisation.model.CompteClient;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author manukey
  */
+@Stateless
 public class CompteClientDaoImpl extends GenericDaoImpl<CompteClient> implements CompteClientDao{
 
     public CompteClientDaoImpl() {

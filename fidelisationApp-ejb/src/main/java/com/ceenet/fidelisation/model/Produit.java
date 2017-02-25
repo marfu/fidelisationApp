@@ -24,6 +24,7 @@ public class Produit implements Serializable {
     private Long id;
     private String code;
     private String nom;
+    private String photo;
     private int prixProduit;
     
 
@@ -58,6 +59,16 @@ public class Produit implements Serializable {
     public void setPrixProduit(int prixProduit) {
         this.prixProduit = prixProduit;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+    
+    
     
 
     @Override

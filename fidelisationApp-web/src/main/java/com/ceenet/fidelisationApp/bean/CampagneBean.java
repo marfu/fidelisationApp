@@ -10,9 +10,11 @@ import com.ceenet.fidelisation.service.CampagneService;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
@@ -124,5 +126,10 @@ public class CampagneBean implements Serializable {
        
     }
 
+    
+    public void addMessage() {
+       // String summary = value2 ? "Checked" : "Unchecked";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("test"));
+    }
 
 }
