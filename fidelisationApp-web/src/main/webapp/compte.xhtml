@@ -79,12 +79,20 @@
                                 <h:outputText value="#{item.dateCreationCompte}" />
                             </p:column>
 
+                           
                             <p:column headerText="Statut">
 
 
-                                <p:inputSwitch value="#{item.statut}" onLabel="Actif" offLabel="Inactif"	>
+                                <p:inputSwitch value="#{item.statutCompte}" onLabel="Actif" offLabel="Inactif"	>
                                     <p:ajax listener="#{campagneBean.addMessage}" update=":form:msg" />
                                 </p:inputSwitch>
+                            </p:column>
+                            
+                             <p:column headerText="Nom client">
+                                 <h:outputText value="#{item.nomClient}" />
+                            </p:column>
+                            <p:column headerText="Prenom Client">
+                                <h:outputText value="#{item.prenomClient}" />
                             </p:column>
 
 
@@ -116,22 +124,22 @@
 
                                         </h:panelGrid>
 
-                                        <p:column headerText="Statut">
-
+                                       
+                                            <h:outputLabel value="Statut :"  />
 
                                             <p:inputSwitch value="#{compteClientBean.statut}" onLabel="Actif" offLabel="Inactif"	>
-                                                <p:ajax listener="#{campagneBean.addMessage}" update=":form:msg" />
+
                                             </p:inputSwitch>
-                                        </p:column>
+                                       
 
                                         <h:outputLabel value="Nom :" for="nom" />
                                         <p:inputText id="nom" value="#{compteClientBean.nomClient}" title="Nom"  label="Nom"/>
-                                        <h:outputLabel value="Prenom :" for="pre" />
+                                        <h:outputLabel value="Prenom :" for="prenom" />
                                         <p:inputText id="prenom" value="#{compteClientBean.prenomClient}" title="Prenom" label="Prenom"/>
                                         <h:outputLabel value="Adresse :" for="addr" />
-                                        <p:inputText id="addr" value="#{compteClientBean.addressClient}" title="Adresse" label="Adresse"/>
-                                        <h:outputLabel value="N° Telephone :" for="tel" />
-                                        <p:inputText id="telephone" value="#{compteClientBean.telephoneClient}" title="Téléphone"  label="Téléphone"/>
+                                        <p:inputText id="addr" value="#{compteClientBean.emailClient}" title="Email" label="Email"/>
+                                        <h:outputLabel value="N° Telephone :" for="telephone" />
+                                        <p:inputText id="telephone" value="#{compteClientBean.password}" title="Password"  label="Password"/>
 
                                     </h:panelGrid>
 

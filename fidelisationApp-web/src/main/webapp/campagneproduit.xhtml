@@ -1,0 +1,186 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1'];
+                this.cfg.grid = {
+                    background: '#f3f5f7',
+                    borderColor: '#e5ebf0',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#9fadb5'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #9fadb5;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="EmptyBox20"></div>
+                <h:form id="form">
+                    <p:growl id="msg" />
+
+                    <f:view>
+                        <div>
+                            <div style="float:right">
+                                <h:panelGrid columns="1" cellpadding="5">
+
+
+                                    <p:commandButton value="Nouveau" type="button" onclick="PF('dlg2').show();"/>
+
+
+                                </h:panelGrid>
+                            </div>
+
+                        </div>
+                        <p:dataTable var="item" value="#{campagneProduitBean.listCampagneProduit}" id="grid">
+
+
+                            <p:column headerText="Campagne ">
+                                <h:outputText value="#{item.codeCampagne}" />
+                            </p:column>
+
+                            <p:column headerText="Magasin">
+                                <h:outputText value="#{item.libelleMagasin}" />
+                            </p:column>
+                            <p:column headerText="Produit">
+                                <h:outputText value="#{item.nomProduit}" />
+                            </p:column>
+
+                            <p:column headerText="points Achats">
+                                <h:outputText value="#{item.pointsAchats}" />
+                            </p:column>
+
+                            <p:column headerText="points Recompenses">
+                                <h:outputText value="#{item.pointsRecompenses}" />
+                            </p:column>
+
+
+                            <p:column style="width:32px">
+                                <p:commandButton update=":form:grid "  oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-eye" style="color:white" title="View">
+                                    <f:setPropertyActionListener value="#{item.id}"  target="#{campagneProduitBean.selectCampagneProduit}" />
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column style="width:32px">
+                                <p:commandButton  type="button" onclick="PF('dlg3').show();" icon="ui-icon fa fa-edit" style="color:white" title="update"/>
+                            </p:column>
+
+
+                            <p:column style="width:32px">
+                                <p:commandButton update=":form:grid " action="#{campagneProduitBean.deleteCampagneProduit()}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-trash-o" style="color:white" title="Delete">
+                                    <f:setPropertyActionListener value="#{item.id}"  target="#{campagneProduitBean.selectCampagneProduit}" />
+                                </p:commandButton>
+                            </p:column>
+
+
+
+
+                        </p:dataTable>
+
+                        <p:dialog header="Ajout " widgetVar="dlg2" modal="true" height="auto" >
+
+
+                            <f:view>
+                                <h:form id="form">
+
+                                    <p:messages autoUpdate="true"/>
+
+                                    <h:panelGrid id="grid" columns="2" cellpadding="5">
+                                   
+             <h:outputLabel value="Campagne:" for="campagne" />
+
+                                        <p:selectOneMenu value="#{campagneProduitBean.campagne}" required="true" label="campagne">  
+                                            <f:selectItem itemLabel="Selectioner un type" itemValue="" />  
+                                            <f:selectItems value="#{campagneBean.listCampagne}" var="tag"
+                                                           itemLabel="#{tag.codeCampagne}" itemValue="#{tag.id}"/>  
+                                        </p:selectOneMenu>
+
+                                    
+                                        <h:outputLabel value="Produit:" for="produit" />
+
+                                        <p:selectOneMenu value="#{campagneProduitBean.produit}" required="true" label="produit">  
+                                            <f:selectItem itemLabel="Selectioner un type" itemValue="" />  
+                                            <f:selectItems value="#{produitBean.produit}" var="tag1"
+                                                           itemLabel="#{tag1.nom}" itemValue="#{tag1.id}"/>  
+                                        </p:selectOneMenu>
+
+                                     
+                                        <h:outputLabel value="Magasin:" for="magasin" />
+
+                                        <p:selectOneMenu value="#{campagneProduitBean.magasin}" required="true" label="magasin">  
+                                            <f:selectItem itemLabel="Selectioner un type" itemValue="" />  
+                                            <f:selectItems value="#{magasinBean.magasin}" var="tag2"
+                                                           itemLabel="#{tag2.libelle}" itemValue="#{tag2.id}"/>  
+                                        </p:selectOneMenu>
+
+
+
+                                        <h:outputLabel value="Point d'achat:" for="point_achat" />
+                                        <p:inputText id="point_achat" value="#{campagneProduitBean.pointsAchats}" title="Point d'achat" required="true" label="Point d'achat"/>
+
+                                        <h:outputLabel value="Point de recompense" for="point_recompense" />
+                                        <p:inputText id="point_recompense" value="#{campagneProduitBean.pointsRecompenses}" title="Point de recompense" required="true" label="Point de recompense"/>
+
+
+                                    </h:panelGrid>
+
+                                    <p:commandButton value="Valider" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px" action="#{campagneProduitBean.creerCampagneProduit}"/>
+
+                                </h:form>
+
+                            </f:view>
+
+                        </p:dialog>   
+                    </f:view>
+                </h:form>
+                <f:view>
+
+
+
+
+                </f:view>
+                <div class="EmptyBox10"></div>
+            </div>
+        </div>
+
+
+
+    </ui:define>
+
+</ui:composition>

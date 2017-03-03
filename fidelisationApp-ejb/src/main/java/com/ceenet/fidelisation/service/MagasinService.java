@@ -39,4 +39,14 @@ public class MagasinService {
     
     }
     
+    public void updateMagasin(Long selectMagasin,String code,String libelle){
+    Magasin m=new Magasin();
+    m=MagasinDao.findById(selectMagasin);
+    m.setCode(code);
+    m.setLibelle(libelle); 
+    MagasinDao.update(m);
+   
+    
+    }
+    
 }

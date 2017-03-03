@@ -5,12 +5,15 @@
  */
 package com.ceenet.fidelisation.dao;
 
+import com.ceenet.fidelisation.dto.CompteClientDto;
 import com.ceenet.fidelisation.model.CompteClient;
+import java.util.List;
 
 /**
  *
  * @author manukey
  */
 public interface CompteClientDao extends GenericDao<CompteClient>{
+    public List<CompteClientDto> findAllCompteclient();
     
 }

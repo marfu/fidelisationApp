@@ -69,25 +69,34 @@
                         </div>
 
                     </div>
+                    <h:form id="form">
+                        <p:dataTable var="listmagasin" value="#{magasinBean.magasin}" id="grid" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
 
-                    <p:dataTable var="listmagasin" value="#{magasinBean.magasin}" id="grid">
 
+                            <p:column headerText="code">
+                                <h:outputText value="#{listmagasin.code}" />
+                            </p:column>
 
-                        <p:column headerText="code">
-                            <h:outputText value="#{listmagasin.code}" />
-                        </p:column>
+                            <p:column headerText="Libelle">
+                                <h:outputText value="#{listmagasin.libelle}" />
+                            </p:column>
 
-                        <p:column headerText="Libelle">
-                            <h:outputText value="#{listmagasin.libelle}" />
-                        </p:column>
+                            <p:column style="width:32px">
+                                
+                                    <p:commandButton  type="button" onclick="PF('dlg3').show();" icon="ui-icon fa fa-edit" style="color:white" title="update"/>
+                                
+                            </p:column>
 
-                        <p:column style="width:32px">
-                            <p:commandButton update=":grid " action="#{magasinBean.deleteMagasin}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-edit" style="color:white" title="View">
-                                <f:setPropertyActionListener value="#{listmagasin.id}"  target="#{magasinBean.selectMagasin}" />
-                            </p:commandButton>
-                        </p:column>
-                    </p:dataTable>
-                    <p:dialog header="Region " widgetVar="dlg2" modal="true" height="auto" >
+                            <p:column style="width:32px">
+                                <p:commandButton update=":form:grid " action="#{magasinBean.deleteMagasin}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-trash-o" style="color:white" title="Delete">
+                                    <f:setPropertyActionListener value="#{listmagasin.id}"  target="#{magasinBean.selectMagasin}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                    <p:dialog header="Ajout " widgetVar="dlg2" modal="true" height="auto" >
 
 
                         <f:view>
@@ -114,6 +123,34 @@
                         </f:view>
 
                     </p:dialog>   
+                    <!--Modification-->
+                    <p:dialog header="Modification " widgetVar="dlg3" modal="true" height="auto" >
+
+
+                        <f:view>
+                            <h:form>
+
+                                <p:messages autoUpdate="true"/>
+
+                                <h:panelGrid id="grid" columns="2" cellpadding="5">
+
+
+                                    <h:outputLabel value="Code:" for="code_magasin" />
+                                    <p:inputText id="code_magasin" value="#{magasinBean.code}" title="code" required="true" label="code"/>
+
+                                    <h:outputLabel value="Libellé:" for="libelle_magasin" />
+                                    <p:inputText id="libelle_magasin" value="#{magasinBean.libelle}" title="Libellé" required="true" label="Libellé"/>
+
+
+                                </h:panelGrid>
+
+                                <p:commandButton value="Valider" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px" action="#{magasinBean.modifierMagasin}"/>
+
+                            </h:form>
+
+                        </f:view>
+
+                    </p:dialog> 
                 </f:view>
 
 

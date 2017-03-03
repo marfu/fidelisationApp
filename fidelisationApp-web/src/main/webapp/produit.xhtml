@@ -1,0 +1,181 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+
+
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1'];
+                this.cfg.grid = {
+                    background: '#f3f5f7',
+                    borderColor: '#e5ebf0',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#9fadb5'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #9fadb5;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="EmptyBox20"></div>
+
+                <f:view>
+                    <div>
+                        <div style="float:left">
+                            <h:panelGrid columns="1" cellpadding="5">
+
+
+                                <p:commandButton value="Ajouter" type="button" onclick="PF('dlg2').show();"/>
+
+
+                            </h:panelGrid>
+                        </div>
+
+                    </div>
+                    <h:form id="form">
+
+                        <p:dataTable var="lproduit" value="#{produitBean.produit}" id="grid" paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <p:column headerText="code">
+                                <h:outputText value="#{lproduit.code}" />
+                            </p:column>
+
+                            <p:column headerText="nom">
+                                <h:outputText value="#{lproduit.nom}" />
+                            </p:column>
+                            <p:column headerText="prixProduit">
+                                <h:outputText value="#{lproduit.prixProduit}" />
+                            </p:column>
+                            <p:column headerText="photo">
+                                <h:outputText value="#{lproduit.photo}" />
+                            </p:column>
+                            <p:column style="width:32px">
+                                <p:commandButton update=":form:grid "  oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-eye" style="color:white" title="View">
+                                    <f:setPropertyActionListener value="#{lproduit.id}"  target="#{produitBean.selectProduit}" />
+                                </p:commandButton>
+                            </p:column>
+                            <p:column style="width:32px">
+
+                                <p:commandButton  type="button" onclick="PF('dlg3').show();" icon="ui-icon fa fa-edit" style="color:white" title="update"/>
+
+                            </p:column>
+                            <p:column style="width:32px">
+                                <p:commandButton update=":form:grid " action="#{produitBean.deleteProduit}" oncomplete="PF('carDialog').show()" icon="ui-icon fa fa-trash-o" style="color:white" title="Delete">
+                                    <f:setPropertyActionListener value="#{lproduit.id}"  target="#{produitBean.selectProduit}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+
+                    <p:dialog header="Ajout " widgetVar="dlg2" modal="true" height="auto" width="auto">
+                        <f:view>
+                            <h:form>
+
+                                <p:messages autoUpdate="true"/>
+
+                                <h:panelGrid id="grid" columns="2" cellpadding="5">
+
+                                    <h:outputLabel value="Code:" for="code_produit" />
+                                    <p:inputText id="code_produit" value="#{produitBean.code}" title="code" required="true" label="code"/>
+
+                                    <h:outputLabel value="Nom" for="nom_produit" />
+                                    <p:inputText id="nom_produit" value="#{produitBean.nom}" title="Libellé" required="true" label="Libellé"/>
+
+                                    <h:outputLabel value="Prix" for="prix_produit" />
+                                    <p:inputText id="prix_produit" value="#{produitBean.prixProduit}" title="Libellé" required="true" label="nom"/>
+                                    <h:outputLabel value="CodeBarre:" for="codebarre_produit" />
+                                    <p:inputText id="codebarre_produit"  value="#{produitBean.v}" title="codebarre" required="true" label="codebarre"/>
+
+                                    <p:commandButton value="Ajout code barre" id="ajax" update="codebarrelist" actionListener="#{produitBean.remplirList}" styleClass="ui-priority-primary" />
+
+
+                                    <p:dataList id="codebarrelist" value="#{produitBean.r}" var="codebar" type="ordered" >
+                                        <f:facet name="header">
+                                            Liste code barre
+                                        </f:facet>
+                                        #{codebar}
+                                    </p:dataList>
+
+                                </h:panelGrid>
+
+                                <p:commandButton value="Valider" update="grid" icon="ui-icon-check" validateClient="true" style="margin-right:10px" action="#{produitBean.creerProduit}"/>
+
+                            </h:form>
+
+                        </f:view>
+                    </p:dialog>   
+
+                    <p:dialog header="Liste " widgetVar="dlg4" modal="true" height="auto" width="auto">
+                        <f:view>
+                            <h:form>
+                                <p:messages autoUpdate="true"/>
+
+                                <h:panelGrid id="grid" columns="2" cellpadding="5">
+
+                                    <p:dataList id="codebarrelist" value="#{produitBean.codeBarre}" var="codebar" type="ordered" >
+                                        <f:facet name="header">
+                                            Liste code barre
+                                        </f:facet>
+                                        #{codebar}
+                                    </p:dataList>
+
+                                </h:panelGrid>
+                            </h:form>
+
+                        </f:view>
+                    </p:dialog>   
+
+
+                </f:view>
+
+
+                <div class="EmptyBox10"></div>
+            </div>
+        </div>
+
+
+
+    </ui:define>
+
+
+
+</ui:composition>

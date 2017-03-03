@@ -52,11 +52,17 @@ public class MagasinBean implements Serializable {
         return "success";
 
     }
+    public String modifierMagasin() {
+        magasinService.CreateMagasin(code, libelle);
+        return "success";
+
+    }
 
     public List<Magasin> getMagasin() {
         magasin = magasinService.listMagasin();
         return magasin;
     }
+    
 
     public long getSelectMagasin() {
         return selectMagasin;

@@ -5,7 +5,10 @@
  */
 package com.ceenet.fidelisationApp.bean;
 
+import com.ceenet.fidelisation.dto.CompteClientDto;
+import com.ceenet.fidelisation.model.Client;
 import com.ceenet.fidelisation.model.CompteClient;
+import com.ceenet.fidelisation.service.ClientService;
 import com.ceenet.fidelisation.service.CompteClientService;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -25,27 +28,56 @@ import java.util.UUID;
 @SessionScoped
 public class CompteClientBean implements Serializable {
 
-    
-    
     @EJB
     private CompteClientService compteClientService;
 
-    private List<CompteClient> listClientService;
+    @EJB
+    private ClientService clientservice;
+    
+    
+
+    private List<CompteClientDto> listClientService;
 
     private String codeClient;
-    
+
     private Boolean statut;
-    
+
     private String nomClient;
     private String prenomClient;
     private String addressClient;
     private String telephoneClient;
+    private String emailClient;
+    private String password;
+
+    public CompteClientService getCompteClientService() {
+        return compteClientService;
+    }
+
+    public void setCompteClientService(CompteClientService compteClientService) {
+        this.compteClientService = compteClientService;
+    }
+
+    public String getEmailClient() {
+        return emailClient;
+    }
+
+    public void setEmailClient(String emailClient) {
+        this.emailClient = emailClient;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 //    private Date dateDebut;
 //    private Date dateFin;
 //    private boolean statut;
 //    private long typeCampagne;
 //    private long selectCampagne;
-
     public Boolean getStatut() {
         return statut;
     }
@@ -86,8 +118,6 @@ public class CompteClientBean implements Serializable {
         this.telephoneClient = telephoneClient;
     }
 
-    
-    
     public String getCodeClient() {
         return codeClient;
     }
@@ -96,34 +126,41 @@ public class CompteClientBean implements Serializable {
         this.codeClient = codeClient;
     }
 
-    public List<CompteClient> getListClientService() {
-        listClientService = compteClientService.listCompteClient();
+    public List<CompteClientDto> getListClientService() {
+//        listClientService = compteClientService.listCompteClient();
+        listClientService = compteClientService.listCompteClientgeneral();
         return listClientService;
     }
 
-    public void setListClientService(List<CompteClient> listClientService) {
+    public void setListClientService(List<CompteClientDto> listClientService) {
         this.listClientService = listClientService;
     }
 
-    
-     public void generateCodeClient() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public void generateCodeClient() throws NoSuchAlgorithmException, InvalidKeySpecException {
         //String originalPassword = Integer.toString(gen());
-       // System.out.println(originalPassword);
+        // System.out.println(originalPassword);
         codeClient = UUID.randomUUID().toString();
         // String generatedSecuredPasswordHash = PasswordGenerator.generateStorngPasswordHash(originalPassword);
         //codeClient = originalPassword;
     }
-     
-      public int gen() {
+
+    public int gen() {
         Random r = new Random(System.currentTimeMillis());
         return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
     }
-      
-      
-      public String creerCompteClient(String nom,String prenom,String addr,String telephone  ){
-          
-          
-          return "success";
-      
-      }
+
+    public String creerCompteClient() {
+
+        if (nomClient == "" || prenomClient == "" || emailClient == "" || password == "") {
+                compteClientService.CreateCompteClient(codeClient,statut,0);
+        }else
+        {
+            Client c = new Client();
+            c=clientservice.CreateClient(codeClient, nomClient,prenomClient,emailClient,password);
+//            compteClientService.CreateCompteClient(codeClient,statut,c.getId());
+        }
+        
+        return "success";
+
+    }
 }

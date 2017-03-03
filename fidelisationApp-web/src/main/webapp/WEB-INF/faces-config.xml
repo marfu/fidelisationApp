@@ -30,11 +30,32 @@
     </navigation-rule>
     
     <navigation-rule>
+        <from-view-id>/campagneproduit.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{campagneProduitBean.creerCampagneProduit}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/campagneproduit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>   
+
+    </navigation-rule>
+    
+    <navigation-rule>
         <from-view-id>/magasin.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{magasinBean.creerMagasin}</from-action>
             <from-outcome>success</from-outcome>
             <to-view-id>/magasin.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>   
+
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/produit.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{produitBean.creerProduit}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/produit.xhtml</to-view-id>
             <redirect/>
         </navigation-case>   
 

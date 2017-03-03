@@ -6,6 +6,9 @@
 package com.ceenet.fidelisation.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +29,18 @@ public class Produit implements Serializable {
     private String nom;
     private String photo;
     private int prixProduit;
+    @ElementCollection
+    @CollectionTable(name = "CodeBarre")
     
+    private List<String> codeBarre;
+
+    public List<String> getCodeBarre() {
+        return codeBarre;
+    }
+
+    public void setCodeBarre(List<String> codeBarre) {
+        this.codeBarre = codeBarre;
+    }
 
     public Long getId() {
         return id;
@@ -67,9 +81,6 @@ public class Produit implements Serializable {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    
-    
-    
 
     @Override
     public int hashCode() {
@@ -95,5 +106,5 @@ public class Produit implements Serializable {
     public String toString() {
         return "com.ceenet.fidelisation.model.Produit[ id=" + id + " ]";
     }
-    
+
 }

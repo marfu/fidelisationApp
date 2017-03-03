@@ -7,18 +7,25 @@ package com.ceenet.fidelisation.daoImpl;
 
 import com.ceenet.fidelisation.dao.ProduitDao;
 import com.ceenet.fidelisation.model.Produit;
+import java.util.List;
 import javax.ejb.Stateless;
 
 /**
  *
  * @author manukey
  */
-//@Stateless
+@Stateless
 public class ProduitDaoImpl extends GenericDaoImpl<Produit> implements ProduitDao{
      public ProduitDaoImpl() {
     }
     public ProduitDaoImpl(Class<Produit> entityClass) {
         super(entityClass);
+    }
+
+    @Override
+    public List<Produit> findCodeBarreByProd() {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

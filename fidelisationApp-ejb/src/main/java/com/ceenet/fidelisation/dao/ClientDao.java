@@ -12,5 +12,6 @@ import com.ceenet.fidelisation.model.Client;
  * @author marfu
  */
 public interface ClientDao extends GenericDao<Client> {
+
     
 }

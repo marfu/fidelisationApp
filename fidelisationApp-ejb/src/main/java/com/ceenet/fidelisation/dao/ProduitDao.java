@@ -6,11 +6,13 @@
 package com.ceenet.fidelisation.dao;
 
 import com.ceenet.fidelisation.model.Produit;
+import java.util.List;
 
 /**
  *
  * @author manukey
  */
 public interface ProduitDao extends GenericDao<Produit>{
+    public List<Produit> findCodeBarreByProd();
     
 }
