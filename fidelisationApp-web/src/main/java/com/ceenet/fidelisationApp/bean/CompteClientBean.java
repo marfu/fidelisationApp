@@ -33,8 +33,6 @@ public class CompteClientBean implements Serializable {
 
     @EJB
     private ClientService clientservice;
-    
-    
 
     private List<CompteClientDto> listClientService;
 
@@ -150,16 +148,17 @@ public class CompteClientBean implements Serializable {
     }
 
     public String creerCompteClient() {
+//        Client c = new Client();
+//        if (nomClient.equals("") || prenomClient.equals("") || emailClient.equals("") || password.equals("")) {
+//            compteClientService.CreateCompteClient(codeClient, statut, c);
+//        } else {
+//
+//            c = clientservice.CreateClient(codeClient, nomClient, prenomClient, emailClient, password);
+//
+//            System.out.println("xxxxx" + c.getId());
+//            compteClientService.CreateCompteClient(codeClient, statut, c);
+//        }
 
-        if (nomClient == "" || prenomClient == "" || emailClient == "" || password == "") {
-                compteClientService.CreateCompteClient(codeClient,statut,0);
-        }else
-        {
-            Client c = new Client();
-            c=clientservice.CreateClient(codeClient, nomClient,prenomClient,emailClient,password);
-//            compteClientService.CreateCompteClient(codeClient,statut,c.getId());
-        }
-        
         return "success";
 
     }

@@ -28,21 +28,22 @@ public class CompteClientService {
     @EJB
     private ClientDao clientDao;
     
-    public CompteClient CreateCompteClient(String code,Boolean statut,long client) {
+    public CompteClient CreateCompteClient(String code,Boolean statut,Client client) {
         CompteClient cc = new CompteClient();
-        Client c = new Client();
-        c=clientDao.findById(client);
+        //Client c = new Client();
+       // c=clientDao.findById(client);
         
         cc.setCodeCompteClient(code);
         Date created_at = new Date();
         cc.setDateCreationCompte(created_at);
         cc.setStatut(statut);
-        if(c!=null){
+        //if(c!=null){
             
-            cc.setClient(c);
-        }
+            cc.setClient(client);
+        //}
         
-        return cc = compteClientDao.create(cc);
+        //return cc = compteClientDao.create(cc);
+        return cc;
     }
     
     

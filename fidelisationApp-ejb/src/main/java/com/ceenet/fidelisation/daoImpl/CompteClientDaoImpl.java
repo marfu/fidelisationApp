@@ -67,7 +67,7 @@ public class CompteClientDaoImpl extends GenericDaoImpl<CompteClient> implements
 
 
         } catch (NoResultException e) {
-             System.out.println("hjljkljkl");
+             System.out.println(e.getMessage());
         }
         System.out.println(dto.toString());
         return dto;
