@@ -30,49 +30,13 @@ public class Client implements Serializable {
     private String prenom; 
     private String email;
     private String password;
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.password);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Client other = (Client) obj;
-        return true;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
     
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateCreation;
     
+    private String gcm_token;
 
+    
     public Long getId() {
         return id;
     }
@@ -112,8 +76,51 @@ public class Client implements Serializable {
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
     }
+
+    public String getGcm_token() {
+        return gcm_token;
+    }
+
+    public void setGcm_token(String gcm_token) {
+        this.gcm_token = gcm_token;
+    }
+    
+     public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     
     
-    
-    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.password);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Client other = (Client) obj;
+        return true;
+    }
 }
